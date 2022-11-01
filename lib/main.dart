@@ -1,4 +1,4 @@
-import 'package:codefactory_flutter/common/component/custom_text_form_field.dart';
+import 'package:codefactory_flutter/user/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'NotoSans'
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -30,42 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomTextFormField(
-            hintText: '이메일을 입력해 주세요',
-            onChanged: (String value) {
-
-          }),
-          CustomTextFormField(
-            hintText: '비밀번호를 입력해 주세요',
-            obscureText: true,
-            onChanged: (String value) {
-
-            })
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return LoginScreen();
   }
 }
