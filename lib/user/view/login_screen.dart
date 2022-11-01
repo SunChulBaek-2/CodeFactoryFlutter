@@ -9,42 +9,51 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _Title(),
-            _SubTitle(),
-            Image.asset(
-              'asset/img/misc/logo.png',
-              width: MediaQuery.of(context).size.width/3*2
-            ),
-            CustomTextFormField(
-              hintText: '이메일을 입력해 주세요',
-              onChanged: (String value) {
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _Title(),
+                  const SizedBox(height: 16),
+                  _SubTitle(),
+                  Image.asset(
+                    'asset/img/misc/logo.png',
+                    width: MediaQuery.of(context).size.width/3*2
+                  ),
+                  CustomTextFormField(
+                    hintText: '이메일을 입력해 주세요',
+                    onChanged: (String value) {
 
-              }
-            ),
-            CustomTextFormField(
-              hintText: '비밀번호를 입력해 주세요',
-              obscureText: true,
-              onChanged: (String value) {
+                    }
+                  ),
+                  const SizedBox(height: 16,),
+                  CustomTextFormField(
+                    hintText: '비밀번호를 입력해 주세요',
+                    obscureText: true,
+                    onChanged: (String value) {
 
-              }
-            ),
-            ElevatedButton(
-              onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                primary: PRIMARY_COLOR
-              ),
-              child: Text('로그인')
-            ),
-            TextButton(
-              onPressed: (){},
-              style: TextButton.styleFrom(primary: Colors.black),
-              child: Text('회원가입')
-            )
-          ],
+                    }
+                  ),
+                  const SizedBox(height: 16,),
+                  ElevatedButton(
+                    onPressed: (){},
+                    style: ElevatedButton.styleFrom(
+                      primary: PRIMARY_COLOR
+                    ),
+                    child: Text('로그인')
+                  ),
+                  TextButton(
+                    onPressed: (){},
+                    style: TextButton.styleFrom(primary: Colors.black),
+                    child: Text('회원가입')
+                  )
+                ],
+              )
+          )
         )
       )
     );
