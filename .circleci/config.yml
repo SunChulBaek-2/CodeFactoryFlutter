@@ -1,0 +1,21 @@
+version: 2.1
+orbs:
+  slack: circleci/slack@4.10.1
+jobs:
+  build:
+    docker:
+      - image: cirrusci/flutter
+    steps:
+      - checkout
+      - run:
+          name: Build Binaries
+          command: flutter pub get;flutter build apk --build-name="1.0.0" --build-number=${CIRCLE_BUILD_NUM} --release;mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/CodeFactory-release-${CIRCLE_BUILD_NUM}.apk
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+      - store_artifacts:
+          path: build/app/outputs/flutter-apk
+          destination: apk
