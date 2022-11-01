@@ -79,17 +79,17 @@ flutter:
   fonts:
     - family: NotoSans
       fonts:
-        - asset: asset/fonts/NotoSansKr-Black.otf
+        - asset: asset/fonts/NotoSansKR-Black.otf
           weight: 900
-        - asset: asset/fonts/NotoSansKr-Bold.otf
+        - asset: asset/fonts/NotoSansKR-Bold.otf
           weight: 700
-        - asset: asset/fonts/NotoSansKr-Medium.otf
+        - asset: asset/fonts/NotoSansKR-Medium.otf
           weight: 500
-        - asset: asset/fonts/NotoSansKr-Regular.otf
+        - asset: asset/fonts/NotoSansKR-Regular.otf
           weight: 400
-        - asset: asset/fonts/NotoSansKr-Light.otf
+        - asset: asset/fonts/NotoSansKR-Light.otf
           weight: 300
-        - asset: asset/fonts/NotoSansKr-Thin.otf
+        - asset: asset/fonts/NotoSansKR-Thin.otf
           weight: 200
 
   # To add custom fonts to your application, add a fonts section here,
