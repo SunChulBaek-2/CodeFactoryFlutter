@@ -2,14 +2,23 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:codefactory_flutter/common/const/colors.dart';
+import 'package:codefactory_flutter/common/view/root_tab.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:codefactory_flutter/common/component/custom_text_form_field.dart';
 import 'package:codefactory_flutter/common/layout/default_layout.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String username = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                   CustomTextFormField(
                     hintText: '이메일을 입력해 주세요',
                     onChanged: (String value) {
-
+                      username = value;
                     }
                   ),
                   const SizedBox(height: 16,),
@@ -53,13 +62,13 @@ class LoginScreen extends StatelessWidget {
                     hintText: '비밀번호를 입력해 주세요',
                     obscureText: true,
                     onChanged: (String value) {
-
+                      password = value;
                     }
                   ),
                   const SizedBox(height: 16,),
                   ElevatedButton(
                     onPressed: () async {
-                      final rawString = 'test@codefactory.ai:testtest';
+                      final rawString = '$username:$password';
                       Codec<String, String> stringToBase64 = utf8.fuse(base64);
                       final token = stringToBase64.encode(rawString);
                       final response = await dio.post('http://$ip/auth/login', options: Options(
@@ -67,6 +76,9 @@ class LoginScreen extends StatelessWidget {
                           'authorization' : 'Basic $token'
                         }
                       ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => RootTab())
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: PRIMARY_COLOR
