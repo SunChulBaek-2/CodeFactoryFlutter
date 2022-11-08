@@ -1,4 +1,4 @@
-import 'package:codefactory_flutter/user/view/login_screen.dart';
+import 'package:codefactory_flutter/common/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,6 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return SplashScreen();
   }
 }

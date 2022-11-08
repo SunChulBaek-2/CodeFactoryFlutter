@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:codefactory_flutter/common/const/colors.dart';
+import 'package:codefactory_flutter/common/const/data.dart';
 import 'package:codefactory_flutter/common/view/root_tab.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           'authorization' : 'Basic $token'
                         }
                       ));
+                      final refreshToken = response.data['refreshToken'];
+                      final accessToken = response.data['accessToken'];
+                      await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
+                      await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
+
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => RootTab())
                       );
