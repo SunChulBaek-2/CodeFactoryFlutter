@@ -2,6 +2,7 @@ import 'package:codefactory_flutter/common/const/colors.dart';
 import 'package:codefactory_flutter/common/const/data.dart';
 import 'package:codefactory_flutter/common/layout/default_layout.dart';
 import 'package:codefactory_flutter/common/view/root_tab.dart';
+import 'package:codefactory_flutter/main.dart';
 import 'package:codefactory_flutter/user/view/login_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
     final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
 
-    final dio = Dio();
     try {
       final response = await dio.post('http://$ip/auth/token', options: Options(
           headers: {
             'authorization': 'Bearer $refreshToken'
           }
       ));
+
+      await storage.write(key: ACCESS_TOKEN_KEY, value: response.data['accessToken']);
+
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => RootTab()), (route) => false);
     } catch (e) {
       Navigator.of(context).pushAndRemoveUntil(

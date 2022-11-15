@@ -1,5 +1,18 @@
 import 'package:codefactory_flutter/common/view/splash_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+final logger = PrettyDioLogger(
+    requestHeader: true,
+    requestBody: true,
+    responseHeader: false,
+    responseBody: true,
+    error: true,
+    compact: true,
+    maxWidth: 90
+);
+final dio = Dio()..interceptors.add(logger);
 
 void main() {
   runApp(const MyApp());

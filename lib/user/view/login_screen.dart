@@ -77,6 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ));
                       final refreshToken = response.data['refreshToken'];
                       final accessToken = response.data['accessToken'];
+                      print('refreshToken = $refreshToken');
+                      print('accessToken = $accessToken');
                       await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
                       await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
 
