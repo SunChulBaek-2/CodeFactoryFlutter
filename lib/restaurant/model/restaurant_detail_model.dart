@@ -34,13 +34,7 @@ class RestaurantDetailModel extends RestaurantModel {
       deliveryTime: json['deliveryTime'],
       detail: json['detail'],
       products: json['products'].map<RestaurantProductModel>((e) =>
-      RestaurantProductModel(
-        id: e['id'],
-        name: e['name'],
-        imgUrl: e['imgUrl'],
-        detail: e['detail'],
-        price: e['price'],
-      )
+        RestaurantProductModel.fromJson(json: e)
       ).toList(),
     );
   }
@@ -60,4 +54,16 @@ class RestaurantProductModel {
   final String imgUrl;
   final String detail;
   final int price;
+
+  factory RestaurantProductModel.fromJson({
+    required Map<String, dynamic> json
+  }) {
+    return RestaurantProductModel(
+      id: json['id'],
+      name: json['name'],
+      imgUrl: 'http://$ip${json['imgUrl']}',
+      detail: json['detail'],
+      price: json['price']
+    );
+  }
 }
