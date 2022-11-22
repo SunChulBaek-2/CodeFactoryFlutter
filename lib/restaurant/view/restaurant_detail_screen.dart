@@ -5,6 +5,7 @@ import 'package:codefactory_flutter/product/component/product_card.dart';
 import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_detail_model.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
+import 'package:codefactory_flutter/restaurant/repository/restaurant_repository.dart';
 import 'package:flutter/material.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
@@ -13,24 +14,24 @@ class RestaurantDetailScreen extends StatelessWidget {
   final String id;
   final RestaurantModel item;
 
-  Future<Map<String, dynamic>> getRestaurantDetail() async {
-    final resp = await dio.get("http://$ip/restaurant/$id");
-    return resp.data;
+  Future<RestaurantDetailModel> getRestaurantDetail() async {
+    final resp = await RestaurantRepository(dio, baseUrl: 'http://$ip').getRestaurantDetail(id: id);
+    return resp;
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
       title: '불타는 떡볶이',
-      child: FutureBuilder<Map<String, dynamic>>(
+      child: FutureBuilder<RestaurantDetailModel>(
         future: getRestaurantDetail(),
-        builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (context, AsyncSnapshot<RestaurantDetailModel> snapshot) {
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          final item = RestaurantDetailModel.fromJson(snapshot.data!);
+          final item = snapshot.data!;
           
           return CustomScrollView(
             slivers: [
