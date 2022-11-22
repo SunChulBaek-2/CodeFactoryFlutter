@@ -1,4 +1,4 @@
-import 'package:codefactory_flutter/common/const/data.dart';
+import 'package:codefactory_flutter/common/utils/data_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_model.g.dart';
@@ -25,7 +25,7 @@ class RestaurantModel {
 
   final String id;
   final String name;
-  @JsonKey(fromJson: pathToUrl) final String thumbUrl;
+  @JsonKey(fromJson: DataUtils.pathToUrl) final String thumbUrl;
   final List<String> tags;
   final RestaurantPriceRange priceRange;
   final double ratings;
@@ -37,6 +37,4 @@ class RestaurantModel {
     => _$RestaurantModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantModelToJson(this);
-
-  static String pathToUrl(String value) => 'http://$ip$value';
 }
