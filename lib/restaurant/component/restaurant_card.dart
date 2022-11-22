@@ -44,7 +44,7 @@ class RestaurantCard extends StatelessWidget {
     String? detail
   }) {
     return RestaurantCard(
-      image: Image.network('http://${ip}${model.thumbUrl}', fit: BoxFit.cover),
+      image: Image.network(model.thumbUrl, fit: BoxFit.cover),
       name: model.name,
       tags: model.tags,
       ratingsCount: model.ratingsCount,
