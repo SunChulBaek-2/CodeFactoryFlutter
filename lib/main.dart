@@ -1,3 +1,5 @@
+import 'package:codefactory_flutter/common/const/data.dart';
+import 'package:codefactory_flutter/common/dio/dio.dart';
 import 'package:codefactory_flutter/common/view/splash_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ final logger = PrettyDioLogger(
     compact: true,
     maxWidth: 90
 );
-final dio = Dio()..interceptors.add(logger);
+final dio = Dio()..interceptors.add(logger)..interceptors.add(CustomInterceptor(storage: storage));
 
 void main() {
   runApp(const MyApp());
