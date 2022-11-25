@@ -3,7 +3,6 @@ import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
 import 'package:codefactory_flutter/restaurant/repository/restaurant_repository.dart';
 import 'package:codefactory_flutter/restaurant/view/restaurant_detail_screen.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -22,11 +21,11 @@ class RestaurantScreen extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: FutureBuilder<List>(
+          child: FutureBuilder<List<RestaurantModel>>(
             future: paginateRestaurant(),
-            builder: (context, AsyncSnapshot<List> snapshot) {
+            builder: (context, AsyncSnapshot<List<RestaurantModel>> snapshot) {
               if (!snapshot.hasData) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator()
                 );
               }
@@ -35,14 +34,13 @@ class RestaurantScreen extends StatelessWidget {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index) {
                   final item = snapshot.data!.elementAt(index);
-                  final pItem = RestaurantModel.fromJson(item);
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => RestaurantDetailScreen(id: pItem.id, item: pItem))
+                        MaterialPageRoute(builder: (_) => RestaurantDetailScreen(id: item.id, item: item))
                       );
                     },
-                    child: RestaurantCard.fromModel(model: pItem)
+                    child: RestaurantCard.fromModel(model: item)
                   );
                 },
                 separatorBuilder: (_, index) {
