@@ -8,14 +8,24 @@ import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
 import 'package:codefactory_flutter/restaurant/repository/restaurant_repository.dart';
 import 'package:flutter/material.dart';
 
-class RestaurantDetailScreen extends StatelessWidget {
-  const RestaurantDetailScreen({super.key, required this.id, required this.item});
+class RestaurantDetailParam {
+  RestaurantDetailParam({required this.id, required this.item});
 
   final String id;
   final RestaurantModel item;
+}
+
+class RestaurantDetailScreen extends StatelessWidget {
+  static const routeName = "/restaurantDetail";
+
+  const RestaurantDetailScreen({super.key, required this.param});
+
+  final RestaurantDetailParam param;
+  // final String id;
+  // final RestaurantModel item;
 
   Future<RestaurantDetailModel> getRestaurantDetail() async {
-    final resp = await RestaurantRepository(dio, baseUrl: 'http://$ip').getRestaurantDetail(id: id);
+    final resp = await RestaurantRepository(dio, baseUrl: 'http://$ip').getRestaurantDetail(id: param.id);
     return resp;
   }
 
