@@ -1,7 +1,4 @@
-import 'package:codefactory_flutter/common/const/data.dart';
-import 'package:codefactory_flutter/common/dio/dio.dart';
 import 'package:codefactory_flutter/common/layout/default_layout.dart';
-import 'package:codefactory_flutter/main.dart';
 import 'package:codefactory_flutter/product/component/product_card.dart';
 import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_detail_model.dart';
@@ -23,21 +20,13 @@ class RestaurantDetailScreen extends ConsumerWidget {
   const RestaurantDetailScreen({super.key, required this.param});
 
   final RestaurantDetailParam param;
-  // final String id;
-  // final RestaurantModel item;
-
-  Future<RestaurantDetailModel> getRestaurantDetail(WidgetRef ref) async {
-    final dio = ref.watch(dioProvider);
-    final resp = await RestaurantRepository(dio, baseUrl: 'http://$ip').getRestaurantDetail(id: param.id);
-    return resp;
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultLayout(
       title: '불타는 떡볶이',
       child: FutureBuilder<RestaurantDetailModel>(
-        future: getRestaurantDetail(ref),
+        future: ref.watch(restaurantRepositoryProvider).getRestaurantDetail(id: param.id),
         builder: (context, AsyncSnapshot<RestaurantDetailModel> snapshot) {
           if (!snapshot.hasData) {
             return Center(
