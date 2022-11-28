@@ -3,21 +3,23 @@ import 'dart:io';
 
 import 'package:codefactory_flutter/common/const/colors.dart';
 import 'package:codefactory_flutter/common/const/data.dart';
+import 'package:codefactory_flutter/common/secure_storage/secure_storage.dart';
 import 'package:codefactory_flutter/common/view/root_tab.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:codefactory_flutter/common/component/custom_text_form_field.dart';
 import 'package:codefactory_flutter/common/layout/default_layout.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   String username = '';
   String password = '';
 
@@ -67,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16,),
                   ElevatedButton(
                     onPressed: () async {
+                      final storage = ref.watch(secureStorageProvider);
                       final rawString = '$username:$password';
                       Codec<String, String> stringToBase64 = utf8.fuse(base64);
                       final token = stringToBase64.encode(rawString);

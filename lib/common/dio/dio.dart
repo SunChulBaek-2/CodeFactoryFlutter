@@ -1,6 +1,29 @@
 import 'package:codefactory_flutter/common/const/data.dart';
+import 'package:codefactory_flutter/common/secure_storage/secure_storage.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+final dioProvider = Provider<Dio>((ref) {
+  final dio = Dio();
+  final storage = ref.watch(secureStorageProvider);
+
+  dio.interceptors.add(
+    CustomInterceptor(storage: storage)
+  );
+  dio.interceptors.add(
+    PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseHeader: false,
+      responseBody: true,
+      error: true,
+      compact: true,
+      maxWidth: 90)
+  );
+  return dio;
+});
 
 class CustomInterceptor extends Interceptor {
   CustomInterceptor({required this.storage});

@@ -4,6 +4,7 @@ import 'package:codefactory_flutter/common/view/splash_screen.dart';
 import 'package:codefactory_flutter/restaurant/view/restaurant_detail_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final logger = PrettyDioLogger(
@@ -15,10 +16,14 @@ final logger = PrettyDioLogger(
     compact: true,
     maxWidth: 90
 );
-final dio = Dio()..interceptors.add(logger)..interceptors.add(CustomInterceptor(storage: storage));
+//final dio = Dio()..interceptors.add(logger)..interceptors.add(CustomInterceptor(storage: storage));
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
