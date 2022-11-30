@@ -19,6 +19,14 @@ class CursorPagination<T> extends CursorPaginationBase {
   final CursorPaginationMeta meta;
   final List<T> data;
 
+  CursorPagination copyWith({
+    CursorPaginationMeta? meta,
+    List<T>? data
+  }) => CursorPagination(
+    meta: meta ?? this.meta,
+    data: data ?? this.data,
+  );
+
   @override
   factory CursorPagination.fromJson(
     Map<String, dynamic> json,
@@ -32,6 +40,14 @@ class CursorPaginationMeta {
 
   final int count;
   final bool hasMore;
+
+  CursorPaginationMeta copyWith({
+    int? count,
+    bool? hasMore
+  }) => CursorPaginationMeta(
+    count: count ?? this.count,
+    hasMore: hasMore ?? this.hasMore
+  );
 
   @override
   factory CursorPaginationMeta.fromJson(Map<String, dynamic> json) =>
