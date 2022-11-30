@@ -17,8 +17,18 @@ class RestaurantStateNotifier extends StateNotifier<CursorPaginationBase> {
 
   final RestaurantRepository repository;
 
-  paginate() async {
-    final resp = await repository.paginate();
-    state = resp;
+  paginate({
+    int fetchCount = 20,
+    bool fetchMore = false,
+    bool forceRefetch = false,
+  }) async {
+    // 5가지 가능성
+    // State의 상태
+    // [상태가]
+    // 1) CursorPagination
+    // 2) CursorPaginationLoading
+    // 3) CursorPaginationError
+    // 4) CursorPaginationRefetching
+    // 5) CursorPaginationFetchMore
   }
 }
