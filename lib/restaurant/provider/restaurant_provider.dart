@@ -27,7 +27,7 @@ class RestaurantStateNotifier extends StateNotifier<CursorPaginationBase> {
 
   final RestaurantRepository repository;
 
-  paginate({
+  Future<void> paginate({
     int fetchCount = 20,
     bool fetchMore = false,
     bool forceRefetch = false,
@@ -99,5 +99,23 @@ class RestaurantStateNotifier extends StateNotifier<CursorPaginationBase> {
     } catch (e) {
       state = CursorPaginationError(message: '데이터를 가져오지 못했습니다.');
     }
+  }
+
+  void getDetail({ required String id }) async {
+    // 만약에 아직 데이터가 없는 상태 => 데이터를 가져와?
+    if (state is! CursorPagination) {
+      await paginate();
+    }
+
+    // state가  CursorPagination이 아니면 그냥 리턴
+    if (state is! CursorPagination) {
+      return;
+    }
+
+    final pState = state as CursorPagination;
+    final resp = await repository.getRestaurantDetail(id: id);
+    state = pState.copyWith(
+      data: pState.data.map<RestaurantModel>((e) => e.id == id ? resp : e).toList()
+    );
   }
 }

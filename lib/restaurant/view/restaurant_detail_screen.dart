@@ -4,7 +4,6 @@ import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_detail_model.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
 import 'package:codefactory_flutter/restaurant/provider/restaurant_provider.dart';
-import 'package:codefactory_flutter/restaurant/repository/restaurant_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +14,7 @@ class RestaurantDetailParam {
   final RestaurantModel item;
 }
 
-class RestaurantDetailScreen extends ConsumerWidget {
+class RestaurantDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "/restaurantDetail";
 
   const RestaurantDetailScreen({super.key, required this.param});
@@ -23,8 +22,20 @@ class RestaurantDetailScreen extends ConsumerWidget {
   final RestaurantDetailParam param;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(restaurantDetailProvider(param.id));
+  ConsumerState<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
+}
+
+class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(restaurantProvider.notifier).getDetail(id: widget.param.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(restaurantDetailProvider(widget.param.id));
     if (state == null) {
       return DefaultLayout(child: Center(child: CircularProgressIndicator()));
     }
@@ -33,8 +44,10 @@ class RestaurantDetailScreen extends ConsumerWidget {
       child: CustomScrollView(
         slivers: [
           renderTop(model: state),
-          renderLabel(),
-          // renderProducts(products: state.products)
+          if (state is RestaurantDetailModel)
+            renderLabel(),
+          if (state is RestaurantDetailModel)
+            renderProducts(products: state.products)
         ],
       )
     );
