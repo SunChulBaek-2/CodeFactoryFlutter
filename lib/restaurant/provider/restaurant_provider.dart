@@ -67,7 +67,7 @@ class RestaurantStateNotifier extends StateNotifier<CursorPaginationBase> {
         if (state is CursorPagination && !forceRefetch) {
           final pState = state as CursorPagination;
           state =
-              CursorPaginationRefetching(meta: pState.meta, data: pState.data)
+              CursorPaginationRefetching(meta: pState.meta, data: pState.data);
         } else {
           state = CursorPaginationLoading();
         }
