@@ -21,7 +21,8 @@ class RatingCard extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     children: [
       _Header(avatarImage: avatarImage, rating: rating, email: email),
-      _Body(),
+      const SizedBox(height: 8),
+      _Body(content: '맛있습니다.'),
       _Images(),
     ],
   );
@@ -58,11 +59,25 @@ class _Header extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({super.key});
+  const _Body({required this.content, super.key});
+
+  final String content;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      children: [
+        Flexible(
+          child: Text(
+            content,
+            style: const TextStyle(
+              color: BODY_TEXT_COLOR,
+              fontSize: 14,
+            )
+          )
+        )
+      ]
+    );
   }
 }
 
