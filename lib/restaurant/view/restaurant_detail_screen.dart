@@ -1,5 +1,6 @@
 import 'package:codefactory_flutter/common/layout/default_layout.dart';
 import 'package:codefactory_flutter/product/component/product_card.dart';
+import 'package:codefactory_flutter/rating/component/rating_card.dart';
 import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_detail_model.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
@@ -50,7 +51,21 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
           if (state is RestaurantDetailModel)
             renderLabel(),
           if (state is RestaurantDetailModel)
-            renderProducts(products: state.products)
+            renderProducts(products: state.products),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: RatingCard(
+                avatarImage: AssetImage(
+                  'asset/img/logo/codefactory_logo.png'
+                ),
+                images: [],
+                rating: 4,
+                email: 'jc@codefactory.ai',
+                content: '맛있습니다.',
+              )
+            )
+          )
         ],
       )
     );
