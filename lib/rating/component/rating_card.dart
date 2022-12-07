@@ -1,5 +1,6 @@
 import 'package:codefactory_flutter/common/const/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class RatingCard extends StatelessWidget {
   const RatingCard({
@@ -22,8 +23,12 @@ class RatingCard extends StatelessWidget {
     children: [
       _Header(avatarImage: avatarImage, rating: rating, email: email),
       const SizedBox(height: 8),
-      _Body(content: '맛있습니다.'),
-      _Images(),
+      _Body(content: content),
+      if (images.length > 0)
+        SizedBox(
+          height: 100,
+          child: _Images(images: images)
+        ),
     ],
   );
 }
@@ -82,10 +87,20 @@ class _Body extends StatelessWidget {
 }
 
 class _Images extends StatelessWidget {
-  const _Images({super.key});
+  const _Images({required this.images, super.key});
+
+  final List<Image> images;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: images.mapIndexed((index, e) => Padding(
+        padding: EdgeInsets.only(right: index == images.length - 1 ? 0 : 16),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: e
+        ))).toList()
+    );
   }
 }
