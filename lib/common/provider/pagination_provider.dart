@@ -76,7 +76,8 @@ class PaginationProvider<
       if (state is CursorPaginationFetchingMore) {
         final pState = state as CursorPaginationFetchingMore<T>;
         // 기존 데이터에 새로운 데이터 추가
-        state = resp.copyWith(
+        state = CursorPagination<T>(
+            meta: resp.meta,
             data: [
               ...pState.data,
               ...resp.data,
