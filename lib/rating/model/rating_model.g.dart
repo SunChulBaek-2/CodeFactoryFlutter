@@ -11,8 +11,7 @@ RatingModel _$RatingModelFromJson(Map<String, dynamic> json) => RatingModel(
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
       rating: json['rating'] as int,
       content: json['content'] as String,
-      imgUrls:
-          (json['imgUrls'] as List<dynamic>).map((e) => e as String).toList(),
+      imgUrls: DataUtils.listPathsToUrls(json['imgUrls'] as List),
     );
 
 Map<String, dynamic> _$RatingModelToJson(RatingModel instance) =>

@@ -12,7 +12,7 @@ class PaginationParams {
   final String? after;
   final int? count;
 
-  PaginationParams copyWith({
+  PaginationParams copyWith<T>({
     String? after,
     int? count,
   }) => PaginationParams(
