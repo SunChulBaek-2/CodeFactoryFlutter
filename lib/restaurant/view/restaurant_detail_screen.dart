@@ -53,7 +53,7 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
   Widget build(BuildContext context) {
     final state = ref.watch(restaurantDetailProvider(widget.param.id));
     final ratingsState = ref.watch(restaurantRatingProvider(widget.param.id));
-    print(ratingsState);
+
     if (state == null) {
       return DefaultLayout(child: Center(child: CircularProgressIndicator()));
     }
