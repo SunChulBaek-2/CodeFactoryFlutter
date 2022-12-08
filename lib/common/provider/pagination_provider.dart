@@ -54,7 +54,7 @@ class PaginationProvider<
 
       // fetchMore : 데이터를 추가로 더 가져오는 상황
       if (fetchMore) {
-        final pState = state as CursorPagination<T>;
+        final pState = state as CursorPagination;
         state =
             CursorPaginationFetchingMore(meta: pState.meta, data: pState.data);
         paginationParams = paginationParams.copyWith(
@@ -74,7 +74,7 @@ class PaginationProvider<
           paginationParams: paginationParams
       );
       if (state is CursorPaginationFetchingMore) {
-        final pState = state as CursorPaginationFetchingMore<T>;
+        final pState = state as CursorPaginationFetchingMore;
         // 기존 데이터에 새로운 데이터 추가
         state = CursorPagination<T>(
             meta: resp.meta,
