@@ -1,9 +1,13 @@
 import 'package:codefactory_flutter/common/model/cursor_pagination_model.dart';
+import 'package:codefactory_flutter/common/model/model_with_id.dart';
 import 'package:codefactory_flutter/common/model/pagination_params.dart';
 import 'package:codefactory_flutter/common/repository/base_pagination_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PaginationProvider<U extends IBasePaginationRepository> extends StateNotifier<CursorPaginationBase> {
+class PaginationProvider<
+  T extends IModelWithId,
+  U extends IBasePaginationRepository<T>
+> extends StateNotifier<CursorPaginationBase> {
   PaginationProvider({
     required this.repository
   }) : super(CursorPaginationLoading());
@@ -48,7 +52,7 @@ class PaginationProvider<U extends IBasePaginationRepository> extends StateNotif
 
       // fetchMore : 데이터를 추가로 더 가져오는 상황
       if (fetchMore) {
-        final pState = state as CursorPagination;
+        final pState = state as CursorPagination<T>;
         state =
             CursorPaginationFetchingMore(meta: pState.meta, data: pState.data);
         paginationParams = paginationParams.copyWith(
@@ -57,9 +61,9 @@ class PaginationProvider<U extends IBasePaginationRepository> extends StateNotif
       } else { // 데이터를 처음부터 가져오는 상황
         // 데이터가 있는 상황이라면, 기존 데이터 보존한 채로 fetch
         if (state is CursorPagination && !forceRefetch) {
-          final pState = state as CursorPagination;
+          final pState = state as CursorPagination<T>;
           state =
-              CursorPaginationRefetching(meta: pState.meta, data: pState.data);
+              CursorPaginationRefetching<T>(meta: pState.meta, data: pState.data);
         } else {
           state = CursorPaginationLoading();
         }
@@ -68,7 +72,7 @@ class PaginationProvider<U extends IBasePaginationRepository> extends StateNotif
           paginationParams: paginationParams
       );
       if (state is CursorPaginationFetchingMore) {
-        final pState = state as CursorPaginationFetchingMore;
+        final pState = state as CursorPaginationFetchingMore<T>;
         // 기존 데이터에 새로운 데이터 추가
         state = resp.copyWith(
             data: [
