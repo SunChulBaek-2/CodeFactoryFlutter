@@ -10,7 +10,9 @@ class PaginationProvider<
 > extends StateNotifier<CursorPaginationBase> {
   PaginationProvider({
     required this.repository
-  }) : super(CursorPaginationLoading());
+  }) : super(CursorPaginationLoading()) {
+    paginate();
+  }
 
   final U repository;
 
@@ -83,7 +85,9 @@ class PaginationProvider<
       } else {
         state = resp;
       }
-    } catch (e) {
+    } catch (e, stack) {
+      print(e);
+      print(stack);
       state = CursorPaginationError(message: '데이터를 가져오지 못했습니다.');
     }
   }

@@ -5,6 +5,7 @@ import 'package:codefactory_flutter/restaurant/component/restaurant_card.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_detail_model.dart';
 import 'package:codefactory_flutter/restaurant/model/restaurant_model.dart';
 import 'package:codefactory_flutter/restaurant/provider/restaurant_provider.dart';
+import 'package:codefactory_flutter/restaurant/provider/restaurant_rating_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
@@ -38,6 +39,8 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(restaurantDetailProvider(widget.param.id));
+    final ratingsState = ref.watch(restaurantRatingProvider(widget.param.id));
+    print(ratingsState);
     if (state == null) {
       return DefaultLayout(child: Center(child: CircularProgressIndicator()));
     }

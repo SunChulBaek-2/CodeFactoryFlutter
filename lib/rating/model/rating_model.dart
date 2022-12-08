@@ -12,7 +12,7 @@ class RatingModel implements IModelWithId {
     required this.user,
     required this.rating,
     required this.content,
-    @JsonKey(fromJson: DataUtils.listPathsToUrls) required this.imageUrls,
+    @JsonKey(fromJson: DataUtils.listPathsToUrls) required this.imgUrls,
   });
 
   @override
@@ -20,7 +20,7 @@ class RatingModel implements IModelWithId {
   final UserModel user;
   final int rating;
   final String content;
-  final List<String> imageUrls;
+  final List<String> imgUrls;
 
   factory RatingModel.fromJson(Map<String, dynamic> json) => _$RatingModelFromJson(json);
 }
