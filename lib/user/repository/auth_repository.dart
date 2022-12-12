@@ -1,7 +1,15 @@
+import 'package:codefactory_flutter/common/const/data.dart';
+import 'package:codefactory_flutter/common/dio/dio.dart';
 import 'package:codefactory_flutter/common/model/login_response.dart';
 import 'package:codefactory_flutter/common/model/token_response.dart';
 import 'package:codefactory_flutter/common/utils/data_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  final dio = ref.watch(dioProvider);
+  return AuthRepository(dio: dio, baseUrl: 'http//$ip/auth');
+});
 
 class AuthRepository {
   AuthRepository({
