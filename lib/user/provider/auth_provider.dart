@@ -33,7 +33,8 @@ class AuthProvider extends ChangeNotifier {
           path: 'restaurant/:rid',
           name: RestaurantDetailScreen.routeName,
           builder: (context, state) => RestaurantDetailScreen(
-              param: RestaurantDetailParam(id: state.params['rid']!, item: null)),
+            id: state.params['rid']!
+          ),
         )
       ]
     ),

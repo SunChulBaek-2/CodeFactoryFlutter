@@ -13,19 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
 
-class RestaurantDetailParam {
-  RestaurantDetailParam({required this.id, required this.item});
-
-  final String id;
-  final RestaurantModel? item;
-}
-
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   static const routeName = "/restaurantDetail";
 
-  const RestaurantDetailScreen({super.key, required this.param});
+  const RestaurantDetailScreen({required this.id, super.key});
 
-  final RestaurantDetailParam param;
+  final String id;
 
   @override
   ConsumerState<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
@@ -38,21 +31,21 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
   @override
   void initState() {
     super.initState();
-    ref.read(restaurantProvider.notifier).getDetail(id: widget.param.id);
+    ref.read(restaurantProvider.notifier).getDetail(id: widget.id);
     controller.addListener(listener);
   }
   
   void listener() {
     PaginationUtils.paginate(
         controller: controller,
-        provider: ref.read(restaurantRatingProvider(widget.param.id).notifier)
+        provider: ref.read(restaurantRatingProvider(widget.id).notifier)
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(restaurantDetailProvider(widget.param.id));
-    final ratingsState = ref.watch(restaurantRatingProvider(widget.param.id));
+    final state = ref.watch(restaurantDetailProvider(widget.id));
+    final ratingsState = ref.watch(restaurantRatingProvider(widget.id));
 
     if (state == null) {
       return DefaultLayout(child: Center(child: CircularProgressIndicator()));
