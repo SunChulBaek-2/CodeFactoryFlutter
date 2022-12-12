@@ -1,5 +1,6 @@
 import 'package:codefactory_flutter/common/const/data.dart';
 import 'package:codefactory_flutter/common/dio/dio.dart';
+import 'package:codefactory_flutter/common/provider/go_router.dart';
 import 'package:codefactory_flutter/common/view/splash_screen.dart';
 import 'package:codefactory_flutter/restaurant/view/restaurant_detail_screen.dart';
 import 'package:codefactory_flutter/user/provider/auth_provider.dart';
@@ -33,30 +34,14 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(authProvier);
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'NotoSans'
       ),
-      routerConfig: GoRouter(routes: router.routes),
+      routerConfig: router,
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return SplashScreen();
   }
 }

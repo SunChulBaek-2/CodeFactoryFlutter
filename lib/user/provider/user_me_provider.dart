@@ -60,7 +60,6 @@ class UserMeStateNotifier  extends StateNotifier<UserModelBase?> {
 
       final userResp = await repository.getMe();
       state = userResp;
-
       return userResp;
     } catch (e) {
       state = UserModelError(message: '로그인에 실패하였습니다.');
