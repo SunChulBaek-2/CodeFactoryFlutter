@@ -17,7 +17,7 @@ class RestaurantDetailParam {
   RestaurantDetailParam({required this.id, required this.item});
 
   final String id;
-  final RestaurantModel item;
+  final RestaurantModel? item;
 }
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {

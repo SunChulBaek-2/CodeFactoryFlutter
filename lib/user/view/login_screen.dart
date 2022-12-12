@@ -13,6 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
+  static String get routeName => "login";
+
   const LoginScreen({super.key});
 
   @override

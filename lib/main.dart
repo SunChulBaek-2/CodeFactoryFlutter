@@ -2,9 +2,11 @@ import 'package:codefactory_flutter/common/const/data.dart';
 import 'package:codefactory_flutter/common/dio/dio.dart';
 import 'package:codefactory_flutter/common/view/splash_screen.dart';
 import 'package:codefactory_flutter/restaurant/view/restaurant_detail_screen.dart';
+import 'package:codefactory_flutter/user/provider/auth_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final logger = PrettyDioLogger(
@@ -26,40 +28,19 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(authProvier);
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'NotoSans'
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      onGenerateRoute: (settings) => PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) {
-          if (settings.name == "/restaurantDetail") {
-            return RestaurantDetailScreen(
-              param: settings.arguments as RestaurantDetailParam
-            );
-          }
-          throw Exception();
-        },
-        transitionDuration: const Duration(milliseconds: 200),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0);
-          const end = Offset.zero;
-          const curve = Curves.ease;
-
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          return SlideTransition(
-            position: animation.drive(tween),
-            child: child
-          );
-        }
-      )
+      routerConfig: GoRouter(routes: router.routes),
     );
   }
 }

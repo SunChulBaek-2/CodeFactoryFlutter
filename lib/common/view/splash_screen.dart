@@ -12,6 +12,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
+  static String get routeName => "splash";
+
   const SplashScreen({super.key});
 
   @override
