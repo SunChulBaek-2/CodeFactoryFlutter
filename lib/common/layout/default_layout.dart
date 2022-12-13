@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class DefaultLayout extends StatelessWidget {
-  final Color? backgroundColor;
-  final Widget child;
-  final String? title;
-  final Widget? bottomNavigationBar;
-
   const DefaultLayout({
     this.backgroundColor,
     required this.child,
     this.title,
     this.bottomNavigationBar,
+    this.floatingActionButton,
     super.key
   });
+
+  final Color? backgroundColor;
+  final Widget child;
+  final String? title;
+  final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class DefaultLayout extends StatelessWidget {
       appBar: renderAppBar(),
       body: child,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
     );
   }
 
