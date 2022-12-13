@@ -1,5 +1,7 @@
 import 'package:codefactory_flutter/common/const/data.dart';
 import 'package:codefactory_flutter/common/dio/dio.dart';
+import 'package:codefactory_flutter/user/model/basket_item_model.dart';
+import 'package:codefactory_flutter/user/model/patch_basket_body.dart';
 import 'package:codefactory_flutter/user/model/user_model.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,4 +25,18 @@ abstract class UserMeRepository {
     'accessToken':'true',
   })
   Future<UserModel> getMe();
+
+  @GET('/basket')
+  @Headers({
+    'accessToken':'true',
+  })
+  Future<List<BasketItemModel>> getBasket();
+
+  @PATCH('/basket')
+  @Headers({
+    'accessToken':'true',
+  })
+  Future<List<BasketItemModel>> patchBasket({
+    @Body() required PatchBasketBody body,
+  });
 }
