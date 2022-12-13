@@ -5,6 +5,17 @@ part 'patch_basket_body.g.dart';
 @JsonSerializable()
 class PatchBasketBody {
   PatchBasketBody({
+    required this.basket,
+  });
+
+  final List<PatchBasketBodyBasket> basket;
+
+  Map<String, dynamic> toJson() => _$PatchBasketBodyToJson(this);
+}
+
+@JsonSerializable()
+class PatchBasketBodyBasket {
+  PatchBasketBodyBasket({
     required this.productId,
     required this.count,
   });
@@ -12,5 +23,7 @@ class PatchBasketBody {
   final String productId;
   final int count;
 
-  Map<String, dynamic> toJson() => _$PatchBasketBodyToJson(this);
+  factory PatchBasketBodyBasket.fromJson(Map<String, dynamic> json) => _$PatchBasketBodyBasketFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PatchBasketBodyBasketToJson(this);
 }
