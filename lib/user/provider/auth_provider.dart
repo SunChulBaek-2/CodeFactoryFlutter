@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:codefactory_flutter/common/view/root_tab.dart';
 import 'package:codefactory_flutter/common/view/splash_screen.dart';
+import 'package:codefactory_flutter/restaurant/view/basket_screen.dart';
 import 'package:codefactory_flutter/restaurant/view/restaurant_detail_screen.dart';
 import 'package:codefactory_flutter/user/model/user_model.dart';
 import 'package:codefactory_flutter/user/provider/user_me_provider.dart';
@@ -37,6 +38,11 @@ class AuthProvider extends ChangeNotifier {
           ),
         )
       ]
+    ),
+    GoRoute(
+      path: '/basket',
+      name: BasketScreen.routeName,
+      builder: (context, state) => BasketScreen(),
     ),
     GoRoute(
       path: '/splash',
