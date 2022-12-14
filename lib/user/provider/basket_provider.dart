@@ -3,6 +3,7 @@ import 'package:codefactory_flutter/user/model/basket_item_model.dart';
 import 'package:codefactory_flutter/user/model/patch_basket_body.dart';
 import 'package:codefactory_flutter/user/provider/user_me_provider.dart';
 import 'package:codefactory_flutter/user/repository/user_me_repository.dart';
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
@@ -16,9 +17,18 @@ final basketProvider = StateNotifierProvider<BasketProvider, List<BasketItemMode
 class BasketProvider extends StateNotifier<List<BasketItemModel>> {
   BasketProvider({
     required this.repository,
-  }): super([]);
+  }): super([]) {
+    updateBasketDebounce.values.listen((event) {
+      patchBasket();
+    });
+  }
 
   final UserMeRepository repository;
+  final updateBasketDebounce = Debouncer(
+    const Duration(seconds: 1),
+    initialValue: null,
+    checkEquality: false,
+  );
 
   Future<void> patchBasket() async {
     await repository.patchBasket(body: PatchBasketBody(basket: state.map((e) =>
@@ -38,7 +48,7 @@ class BasketProvider extends StateNotifier<List<BasketItemModel>> {
         BasketItemModel(product: product, count: 1),
       ];
     }
-    await patchBasket();
+    updateBasketDebounce.setValue(null);
   }
 
   Future<void> removeFromBasket({
@@ -58,6 +68,6 @@ class BasketProvider extends StateNotifier<List<BasketItemModel>> {
       state = state.map((e) => e.product.id == product.id
       ? e.copyWith(count: e.count - 1) : e).toList();
     }
-    await patchBasket();
+    updateBasketDebounce.setValue(null);
   }
 }
