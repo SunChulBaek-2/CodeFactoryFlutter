@@ -5,7 +5,7 @@ import 'package:codefactory_flutter/user/provider/basket_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
-final OrderProvider = StateNotifierProvider<OrderStateNotifier, List<OrderModel>>((ref) {
+final orderProvider = StateNotifierProvider<OrderStateNotifier, List<OrderModel>>((ref) {
   final repo = ref.watch(orderRepositoryProvider);
   return OrderStateNotifier(ref: ref, repository: repo);
 });
@@ -36,7 +36,9 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
           createAt: DateTime.now().toString()
       ));
       return true;
-    } catch (e) {
+    } catch (e, stack) {
+      print(e);
+      print(stack);
       return false;
     }
   }

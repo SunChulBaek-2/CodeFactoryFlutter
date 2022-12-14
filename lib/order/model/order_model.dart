@@ -11,15 +11,15 @@ class OrderModel implements IModelWithId {
     required this.id,
     required this.products,
     required this.totalPrice,
-    required this.restaurantModel,
-    required this.createdAt,
+    required this.restaurant,
+    //required this.createdAt,
   });
 
   final String id;
   final List<OrderProductAndCountModel> products;
   final int totalPrice;
-  final RestaurantModel restaurantModel;
-  @JsonKey(fromJson: DataUtils.stringToDateTime) final DateTime createdAt;
+  final RestaurantModel restaurant;
+  //@JsonKey(fromJson: DataUtils.stringToDateTime) final DateTime createdAt;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => _$OrderModelFromJson(json);
 }

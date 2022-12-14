@@ -13,9 +13,8 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
               OrderProductAndCountModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPrice: json['totalPrice'] as int,
-      restaurantModel: RestaurantModel.fromJson(
-          json['restaurantModel'] as Map<String, dynamic>),
-      createdAt: DataUtils.stringToDateTime(json['createdAt'] as String),
+      restaurant:
+          RestaurantModel.fromJson(json['restaurant'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
@@ -23,8 +22,7 @@ Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
       'id': instance.id,
       'products': instance.products,
       'totalPrice': instance.totalPrice,
-      'restaurantModel': instance.restaurantModel,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'restaurant': instance.restaurant,
     };
 
 OrderProductModel _$OrderProductModelFromJson(Map<String, dynamic> json) =>
