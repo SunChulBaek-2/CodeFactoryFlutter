@@ -13,11 +13,26 @@ class PostOrderBody {
   });
 
   final String id;
-  final List<BasketItemModel> products;
+  final List<PostOrderBodyProduct> products;
   final int totalPrice;
   final String createAt;
 
   factory PostOrderBody.fromJson(Map<String, dynamic> json) => _$PostOrderBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostOrderBodyToJson(this);
+}
+
+@JsonSerializable()
+class PostOrderBodyProduct {
+  PostOrderBodyProduct({
+    required this.productId,
+    required this.count
+  });
+
+  final String productId;
+  final int count;
+
+  factory PostOrderBodyProduct.fromJson(Map<String, dynamic> json) => _$PostOrderBodyProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PostOrderBodyProductToJson(this);
 }
